@@ -169,6 +169,30 @@ const PORTFOLIO_DATA = {
   // Selected Works & Projects Gallery
   designGallery: [
     {
+      id: "g-parsomen",
+      title: "Insightful Parşömen — AI Studio App",
+      category: "AI & Product",
+      type: "TypeScript • Vercel App",
+      year: "2026",
+      gradient: "linear-gradient(135deg, #1E1B4B 0%, #4338CA 100%)",
+      accent: "#818CF8",
+      liveUrl: "https://insightful-parsomen.vercel.app",
+      githubUrl: "https://github.com/Barotello/insightful_parsomen",
+      desc: "AI Studio platform integrating generative intelligence, advanced document analysis, and intuitive multi-modal workflows deployed on Vercel."
+    },
+    {
+      id: "g-mathgame",
+      title: "MathGame — Interactive Learning",
+      category: "Game & UI",
+      type: "TypeScript • Vercel App",
+      year: "2026",
+      gradient: "linear-gradient(135deg, #064E3B 0%, #0F766E 100%)",
+      accent: "#2DD4BF",
+      liveUrl: "https://math-game-eta-self.vercel.app",
+      githubUrl: "https://github.com/Barotello/MathGame",
+      desc: "Gamified educational mathematics interface featuring progressive difficulty, real-time score analytics, and fluid web animations deployed on Vercel."
+    },
+    {
       id: "g-preplab",
       title: "PrepLab.ai — AI CV Coach",
       category: "AI & Product",
@@ -180,58 +204,60 @@ const PORTFOLIO_DATA = {
       desc: "AI-powered CV coaching and career preparation platform designed end to end from IA to shipped React interface."
     },
     {
+      id: "g-storylink",
+      title: "StoryLink — Web & Stories",
+      category: "Web & Content",
+      type: "TypeScript • Vercel App",
+      year: "2025",
+      gradient: "linear-gradient(135deg, #312E81 0%, #1E1B4B 100%)",
+      accent: "#A5B4FC",
+      liveUrl: "https://storylink-seven.vercel.app",
+      githubUrl: "https://github.com/Barotello/storylink",
+      desc: "Interactive story and curated link ecosystem with card-based micro-content hierarchy and edge performance deployed on Vercel."
+    },
+    {
+      id: "g-liguamind",
+      title: "LiguaMind AI — Language Coach",
+      category: "AI & Product",
+      type: "TypeScript • Vercel App",
+      year: "2026",
+      gradient: "linear-gradient(135deg, #581C87 0%, #3B0764 100%)",
+      accent: "#C084FC",
+      liveUrl: "https://liguamind.vercel.app",
+      githubUrl: "https://github.com/Barotello/liguamind",
+      desc: "Personalized AI language coaching, pronunciation assessment, and interactive fluency training deployed on Vercel."
+    },
+    {
+      id: "g-childgame",
+      title: "ChildGame — Kids Learning & Server",
+      category: "Game & UI",
+      type: "TypeScript • Vercel App",
+      year: "2026",
+      gradient: "linear-gradient(135deg, #78350F 0%, #451A03 100%)",
+      accent: "#FBBF24",
+      liveUrl: "https://childgame-api-server-p4xt.vercel.app",
+      githubUrl: "https://github.com/Barotello/childgame",
+      desc: "Child-friendly educational gaming playground with cognitive development puzzles, accessible audio-visual feedback, and secure server architecture."
+    },
+    {
       id: "g-aselsan",
       title: "ASELSAN Command & Control & Zabbix",
       category: "Defense & Systems",
       type: "Figma UI • Mission-Critical",
       year: "2023 - 2026",
-      gradient: "linear-gradient(135deg, #064E3B 0%, #022C22 100%)",
+      gradient: "linear-gradient(135deg, #111827 0%, #1F2937 100%)",
       accent: "#34D399",
       desc: "Task-focused operational interfaces reducing navigation clicks by 40% for critical monitoring screens."
     },
     {
-      id: "g-storylink",
-      title: "StoryLink Platform",
-      category: "Web & Content",
-      type: "TypeScript • Vercel App",
-      year: "2025",
-      gradient: "linear-gradient(135deg, #1E1B4B 0%, #312E81 100%)",
-      accent: "#818CF8",
-      liveUrl: "https://storylink-seven.vercel.app",
-      githubUrl: "https://github.com/Barotello/storylink",
-      desc: "Interactive story and curated link ecosystem with card-based micro-content hierarchy and edge performance."
-    },
-    {
-      id: "g-dedektif",
-      title: "Dedektif Modu & ReflexRush",
-      category: "Game & Interaction",
-      type: "Game UI & IxD",
-      year: "2024",
-      gradient: "linear-gradient(135deg, #78350F 0%, #451A03 100%)",
-      accent: "#FBBF24",
-      desc: "User flows and game interface design for an AI-driven multiplayer detective game and fast reflex experiences."
-    },
-    {
       id: "g-biomap",
       title: "BioMap Health Interface",
-      category: "Health & Mobile UI",
+      category: "Health & Mobile",
       type: "Mobile UI Concept",
       year: "2024",
       gradient: "linear-gradient(135deg, #831843 0%, #500724 100%)",
       accent: "#F472B6",
       desc: "Visual 3D body-map interface visualizing health symptoms, biometric tracking, and personal wellness insights."
-    },
-    {
-      id: "g-liguamind",
-      title: "LiguaMind AI",
-      category: "AI & Language",
-      type: "TypeScript • Vercel App",
-      year: "2026",
-      gradient: "linear-gradient(135deg, #3B0764 0%, #581C87 100%)",
-      accent: "#C084FC",
-      liveUrl: "https://liguamind.vercel.app",
-      githubUrl: "https://github.com/Barotello/liguamind",
-      desc: "Personalized AI language coaching, pronunciation assessment, and interactive fluency training."
     }
   ]
 };

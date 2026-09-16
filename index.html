@@ -82,26 +82,6 @@
           </a>
         </div>
 
-        <!-- 4 CV Key Pillars -->
-        <div class="hero-stats">
-          <div class="stat-item">
-            <div class="stat-value">ASELSAN</div>
-            <div class="stat-label">Systems Engineer (UX/UI)</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">PrepLab.ai</div>
-            <div class="stat-label">Co-Founder & Product Design</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">METU '23</div>
-            <div class="stat-label">B.Sc. Computer Education</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">Google & Claude</div>
-            <div class="stat-label">Certified UX & LLM Specialist</div>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -116,17 +96,37 @@
           <p class="section-desc">From generative AI platforms to mission-critical operational systems, designed end to end and deployed to production.</p>
         </div>
 
-        <div class="gallery-filters" role="group" aria-label="Category Filters">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="ai">AI & Product</button>
-          <button class="filter-btn" data-filter="defense">Defense & Systems</button>
-          <button class="filter-btn" data-filter="content">Web & Content</button>
-          <button class="filter-btn" data-filter="game">Game & UI</button>
-          <button class="filter-btn" data-filter="health">Health & Mobile</button>
+        <div class="gallery-toolbar">
+          <div class="gallery-filters" role="group" aria-label="Category Filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="ai">AI & Product</button>
+            <button class="filter-btn" data-filter="web">Web & Content</button>
+            <button class="filter-btn" data-filter="game">Game & UI</button>
+            <button class="filter-btn" data-filter="defense">Defense & Systems</button>
+            <button class="filter-btn" data-filter="health">Health & Mobile</button>
+          </div>
+
+          <div class="carousel-nav-controls" aria-label="Projects carousel navigation">
+            <button id="prevProjectBtn" class="carousel-nav-btn" aria-label="Previous Projects" title="Previous">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button id="nextProjectBtn" class="carousel-nav-btn" aria-label="Next Projects" title="Next">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
         </div>
 
-        <div id="galleryGrid" class="gallery-grid">
-          <!-- Populated by JavaScript -->
+        <div class="gallery-carousel-viewport">
+          <div id="galleryGrid" class="gallery-carousel-track">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Apple Carousel Scroll Progress Indicator -->
+        <div class="carousel-progress-container">
+          <div class="carousel-progress-track">
+            <div id="carouselProgressBar" class="carousel-progress-bar"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -192,6 +192,10 @@
         <div>© 2026 Baran Demirtaş (@Barotello). All rights reserved.</div>
         <div class="footer-socials">
           <a href="https://github.com/Barotello" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
+          <a href="https://insightful-parsomen.vercel.app" target="_blank" rel="noopener noreferrer" class="social-link">Insightful Parşömen ↗</a>
+          <a href="https://math-game-eta-self.vercel.app" target="_blank" rel="noopener noreferrer" class="social-link">MathGame ↗</a>
+          <a href="https://storylink-seven.vercel.app" target="_blank" rel="noopener noreferrer" class="social-link">StoryLink ↗</a>
+          <a href="https://liguamind.vercel.app" target="_blank" rel="noopener noreferrer" class="social-link">LiguaMind ↗</a>
           <a href="mailto:barandemirtas2@gmail.com" class="social-link">Email</a>
         </div>
       </div>

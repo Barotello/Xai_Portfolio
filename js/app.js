@@ -125,25 +125,108 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
     galleryGrid.innerHTML = filtered.map(item => `
-      <div class="gallery-card" onclick="openGalleryModal('${item.id}')">
+      <div class="gallery-card" onclick="openGalleryModal('${item.id}')" tabindex="0" role="button" aria-label="${item.title}">
         <div class="gallery-card-preview" style="background: ${item.gradient}">
-          <div style="font-weight:700; font-size:1.4rem; color:#ffffff; opacity:0.9; text-shadow:0 2px 10px rgba(0,0,0,0.5);">
-            ${item.title.split(' ')[0]}
-          </div>
+          <div class="card-watermark">${item.title.split('—')[0].trim()}</div>
+          <div class="card-floating-badge">${item.year}</div>
         </div>
         <div class="gallery-card-body">
           <div>
-            <div class="gallery-tag">${item.category} • ${item.year}</div>
-            <div class="gallery-item-title">${item.title}</div>
-            <div class="gallery-item-desc">${item.desc}</div>
+            <div class="gallery-tag">${item.category}</div>
+            <h3 class="gallery-item-title">${item.title}</h3>
+            <p class="gallery-item-desc">${item.desc}</p>
           </div>
-          <div style="margin-top:14px; display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:0.75rem; color:var(--text-muted);">${item.type}</span>
-            <span style="font-size:0.78rem; color:${item.accent}; font-weight:600;">View Details →</span>
+          <div class="gallery-card-footer">
+            <span class="gallery-tech-pill">${item.type}</span>
+            <span class="gallery-action-link" style="color:${item.accent};">${item.liveUrl ? 'Live App ↗' : 'Details →'}</span>
           </div>
         </div>
       </div>
     `).join('');
+
+    // Re-bind interactions & animation on gallery update
+    if (window.appleInteractions) {
+      window.appleInteractions.refreshCards();
+      galleryGrid.querySelectorAll('.gallery-card').forEach((c, idx) => {
+        c.classList.add('reveal-element');
+        c.style.animationDelay = `${idx * 0.05}s`;
+        c.classList.add('is-visible');
+      });
+    }
+
+    updateCarouselProgress();
+  }
+
+  // Apple Fluid Carousel Controls & Progress
+  const prevBtn = document.getElementById('prevProjectBtn');
+  const nextBtn = document.getElementById('nextProjectBtn');
+  const progressBar = document.getElementById('carouselProgressBar');
+
+  function updateCarouselProgress() {
+    if (!galleryGrid || !progressBar) return;
+    const maxScroll = galleryGrid.scrollWidth - galleryGrid.clientWidth;
+    if (maxScroll <= 0) {
+      progressBar.style.width = '100%';
+      progressBar.style.transform = 'none';
+      return;
+    }
+    const ratio = galleryGrid.scrollLeft / maxScroll;
+    const barWidthPercent = Math.max(20, Math.min(60, (galleryGrid.clientWidth / galleryGrid.scrollWidth) * 100));
+    progressBar.style.width = `${barWidthPercent}%`;
+    const moveRange = (100 - barWidthPercent);
+    progressBar.style.transform = `translateX(${ratio * (galleryGrid.clientWidth * (1 - barWidthPercent / 100))}px)`;
+  }
+
+  if (galleryGrid) {
+    galleryGrid.addEventListener('scroll', updateCarouselProgress, { passive: true });
+
+    // Drag-to-scroll momentum
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    galleryGrid.addEventListener('mousedown', (e) => {
+      // ignore if clicking link or button directly
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+      isDown = true;
+      startX = e.pageX - galleryGrid.offsetLeft;
+      scrollStart = galleryGrid.scrollLeft;
+      galleryGrid.style.scrollBehavior = 'auto';
+      galleryGrid.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      if (galleryGrid) {
+        galleryGrid.style.scrollBehavior = 'smooth';
+        galleryGrid.style.cursor = '';
+      }
+    });
+
+    galleryGrid.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - galleryGrid.offsetLeft;
+      const walk = (x - startX) * 1.4;
+      galleryGrid.scrollLeft = scrollStart - walk;
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (galleryGrid) {
+        galleryGrid.scrollBy({ left: -390, behavior: 'smooth' });
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (galleryGrid) {
+        galleryGrid.scrollBy({ left: 390, behavior: 'smooth' });
+      }
+    });
   }
 
   // Filter Buttons Listener
@@ -152,6 +235,9 @@ document.addEventListener('DOMContentLoaded', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       renderGallery(btn.dataset.filter);
+      if (galleryGrid) {
+        galleryGrid.scrollTo({ left: 0, behavior: 'smooth' });
+      }
     });
   });
 
@@ -177,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalContent.innerHTML = `
       <div style="height:140px; border-radius:16px; background:${item.gradient}; margin-bottom:20px; display:flex; align-items:center; justify-content:center;">
-        <span style="font-size:1.6rem; font-weight:700; color:#fff;">${item.title}</span>
+        <span style="font-size:1.6rem; font-weight:700; color:#fff;">${item.title.split('—')[0].trim()}</span>
       </div>
       <div style="font-size:0.8rem; color:${item.accent}; font-weight:600; text-transform:uppercase; margin-bottom:6px;">
         ${item.category} • ${item.year}
@@ -188,8 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
       </p>
       <div style="display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08); flex-wrap:wrap; gap:10px;">
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          ${item.liveUrl ? `<a href="${item.liveUrl}" target="_blank" rel="noopener" class="btn-primary" style="font-size:0.85rem; padding:8px 16px;">Live Product ↗</a>` : ''}
-          ${item.githubUrl ? `<a href="${item.githubUrl}" target="_blank" rel="noopener" class="btn-secondary" style="font-size:0.85rem; padding:8px 16px;">GitHub Repo ↗</a>` : ''}
+          ${item.liveUrl ? `<a href="${item.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size:0.85rem; padding:8px 16px;">Live App ↗</a>` : ''}
+          ${item.githubUrl ? `<a href="${item.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:0.85rem; padding:8px 16px;">GitHub Repo ↗</a>` : ''}
         </div>
         <button class="btn-secondary" onclick="closeModal()">Close</button>
       </div>

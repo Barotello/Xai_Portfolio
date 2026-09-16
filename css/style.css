@@ -229,16 +229,31 @@ button, select {
 
 .hero-glow {
   position: absolute;
-  top: 40px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
-  width: 550px;
-  height: 350px;
-  background: radial-gradient(circle, var(--project-glow) 0%, rgba(0, 0, 0, 0) 70%);
+  width: 600px;
+  height: 380px;
+  background: radial-gradient(circle, var(--project-glow) 0%, rgba(10, 132, 255, 0.08) 45%, rgba(0, 0, 0, 0) 70%);
   pointer-events: none;
-  filter: blur(60px);
+  filter: blur(65px);
   z-index: 0;
-  transition: background 0.8s ease;
+  animation: hero-glow-breathe 8s ease-in-out infinite alternate;
+}
+
+@keyframes hero-glow-breathe {
+  0% {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(0.95);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateX(-50%) scale(1.1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(0.95);
+  }
 }
 
 .hero-content {
@@ -297,7 +312,7 @@ button, select {
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .btn-primary {
@@ -1291,12 +1306,19 @@ button, select {
   color: var(--text-muted);
 }
 
+.gallery-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .gallery-filters {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
-  margin-bottom: 36px;
   flex-wrap: wrap;
 }
 
@@ -1308,45 +1330,105 @@ button, select {
   color: var(--text-muted);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-subtle);
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .filter-btn:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .filter-btn.active {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--apple-blue);
+  border-color: var(--apple-blue);
+  box-shadow: 0 4px 18px var(--project-glow);
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+.carousel-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carousel-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--pill-bg);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carousel-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--apple-blue);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.carousel-nav-btn:active {
+  transform: scale(0.95);
+}
+
+.gallery-carousel-viewport {
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+.gallery-carousel-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 12px 4px 36px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.gallery-carousel-track::-webkit-scrollbar {
+  display: none;
 }
 
 .gallery-card {
-  position: relative;
+  flex: 0 0 380px;
+  width: 380px;
+  scroll-snap-align: start;
   background: var(--bg-card);
-  border-radius: 20px;
+  border-radius: 22px;
   border: 1px solid var(--border-subtle);
   overflow: hidden;
-  transition: transform 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
 }
 
 .gallery-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-card-hover);
+  transform: translateY(-8px) scale(1.01);
+  border-color: rgba(10, 132, 255, 0.45);
+  box-shadow: 0 24px 48px -15px rgba(0, 0, 0, 0.85), 0 0 30px rgba(10, 132, 255, 0.22);
 }
 
 .gallery-card-preview {
-  height: 180px;
+  height: 195px;
   width: 100%;
   position: relative;
   display: flex;
@@ -1363,10 +1445,44 @@ button, select {
   right: 0;
   height: 60px;
   background: linear-gradient(to top, var(--bg-card), transparent);
+  pointer-events: none;
+}
+
+.card-watermark {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #ffffff;
+  opacity: 0.95;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+  padding: 0 20px;
+  text-align: center;
+  z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-card:hover .card-watermark {
+  transform: scale(1.06);
+}
+
+.card-floating-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  z-index: 3;
 }
 
 .gallery-card-body {
-  padding: 20px;
+  padding: 22px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -1374,24 +1490,91 @@ button, select {
 }
 
 .gallery-tag {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-dim);
-  margin-bottom: 4px;
-}
-
-.gallery-item-title {
-  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  color: var(--apple-blue);
   font-weight: 600;
-  color: #fff;
   margin-bottom: 6px;
 }
 
+.gallery-item-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  transition: color 0.25s ease;
+}
+
+.gallery-card:hover .gallery-item-title {
+  color: var(--apple-blue);
+}
+
 .gallery-item-desc {
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   color: var(--text-muted);
-  line-height: 1.4;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.gallery-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: auto;
+}
+
+.gallery-tech-pill {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gallery-action-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.2s ease;
+}
+
+.gallery-card:hover .gallery-action-link {
+  transform: translateX(3px);
+}
+
+.carousel-progress-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+  width: 100%;
+}
+
+.carousel-progress-track {
+  width: 220px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-progress-bar {
+  height: 100%;
+  width: 30%;
+  background: var(--apple-blue);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 10px var(--project-glow);
+  transition: transform 0.1s linear, width 0.2s ease;
+  will-change: transform;
 }
 
 /* -------------------------------------------------------------
@@ -2134,8 +2317,9 @@ button, select {
     height: 520px;
   }
 
-  .gallery-grid {
-    grid-template-columns: 1fr;
+  .gallery-card {
+    flex: 0 0 310px;
+    width: 310px;
   }
 
   .certifications-grid {
@@ -2159,3 +2343,167 @@ button, select {
     padding: 24px 20px;
   }
 }
+
+/* -------------------------------------------------------------
+   APPLE TRANSITIONS, SPOTLIGHT & MICRO-INTERACTIONS ENGINE
+------------------------------------------------------------- */
+
+/* 1. Scroll-Triggered Reveal Animations */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-element.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered transition delays for grid items */
+.gallery-grid .gallery-card:nth-child(1) { transition-delay: 0.04s; }
+.gallery-grid .gallery-card:nth-child(2) { transition-delay: 0.09s; }
+.gallery-grid .gallery-card:nth-child(3) { transition-delay: 0.14s; }
+.gallery-grid .gallery-card:nth-child(4) { transition-delay: 0.19s; }
+.gallery-grid .gallery-card:nth-child(5) { transition-delay: 0.24s; }
+.gallery-grid .gallery-card:nth-child(6) { transition-delay: 0.29s; }
+.gallery-grid .gallery-card:nth-child(7) { transition-delay: 0.34s; }
+.gallery-grid .gallery-card:nth-child(8) { transition-delay: 0.39s; }
+
+/* 2. Interactive Card Cursor Spotlight Glow */
+.gallery-card,
+.experience-card,
+.competency-card,
+.cert-card,
+.education-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background 0.3s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.gallery-card::before,
+.experience-card::before,
+.competency-card::before,
+.cert-card::before,
+.education-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(10, 132, 255, 0.16),
+    rgba(10, 132, 255, 0.04) 40%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-spotlight="active"]::before {
+  opacity: 1;
+}
+
+/* 3. 3D Tilt & Lift Hover Effects */
+.gallery-card:hover {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-7px);
+  border-color: rgba(10, 132, 255, 0.45);
+  box-shadow: 0 22px 45px -15px rgba(0, 0, 0, 0.85), 0 0 28px rgba(10, 132, 255, 0.22);
+}
+
+.gallery-card-preview {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-card:hover .gallery-card-preview {
+  transform: scale(1.04);
+}
+
+.gallery-card:hover .gallery-item-title {
+  color: var(--apple-blue);
+  transition: color 0.25s ease;
+}
+
+/* 4. Experience & Competency Hover Elevations */
+.experience-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(10, 132, 255, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(10, 132, 255, 0.12);
+}
+
+.competency-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(10, 132, 255, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(10, 132, 255, 0.12);
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(10, 132, 255, 0.35);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55), 0 0 18px rgba(10, 132, 255, 0.12);
+}
+
+.education-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(10, 132, 255, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(10, 132, 255, 0.15);
+}
+
+/* 5. Frosted Navbar Elevation on Scroll */
+.apple-nav.nav-scrolled {
+  background: rgba(16, 16, 20, 0.88);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(10, 132, 255, 0.16);
+}
+
+/* 6. Filter Buttons Springy Interaction */
+.filter-btn {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(10, 132, 255, 0.4);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.filter-btn.active {
+  background: var(--apple-blue);
+  color: #ffffff;
+  border-color: var(--apple-blue);
+  box-shadow: 0 4px 18px rgba(10, 132, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+/* 7. Modal Spring Animation */
+.modal-overlay {
+  transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.modal-card {
+  animation: modalSpring 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSpring {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+

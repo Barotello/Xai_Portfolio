@@ -19,6 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalClose = document.getElementById('modalClose');
   const modalContent = document.getElementById('modalContent');
 
+  // Tema Renkleri Paleti
+  const THEME_COLORS = [
+    { name: 'Apple Mavi', color: '#0A84FF', glow: 'rgba(10, 132, 255, 0.28)' },
+    { name: 'Neon Yeşil', color: '#30D158', glow: 'rgba(48, 209, 88, 0.28)' },
+    { name: 'Mor', color: '#BF5AF2', glow: 'rgba(191, 90, 242, 0.28)' },
+    { name: 'Kehribar', color: '#FF9F0A', glow: 'rgba(255, 159, 10, 0.28)' },
+    { name: 'Mercan', color: '#FF375F', glow: 'rgba(255, 55, 95, 0.28)' },
+    { name: 'Açık Mavi', color: '#64D2FF', glow: 'rgba(100, 210, 255, 0.28)' }
+  ];
+
+  let activeCustomTheme = localStorage.getItem('portfolio_theme') || null;
+
   // 1. Proje Seçiciyi Doldur (Apple Model Selector)
   function initProjectSelector() {
     if (!projectSelect) return;
@@ -37,17 +49,107 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 1.1 Sol Proje Listesini Doldur (Sidebar List)
+  function initSidebarProjectList() {
+    const list = document.getElementById('sidebarProjectList');
+    if (!list) return;
+
+    list.innerHTML = PORTFOLIO_DATA.projects.map(p => `
+      <button class="side-project-item ${p.id === currentProjectId ? 'active' : ''}" 
+              data-project-id="${p.id}"
+              onclick="switchProject('${p.id}')"
+              title="${p.name}">
+        <div class="side-project-info">
+          <span class="side-project-name">${p.name.split(' - ')[0]}</span>
+          <span class="side-project-cat">${p.category.split(' & ')[0]}</span>
+        </div>
+        <span class="side-project-dot"></span>
+      </button>
+    `).join('');
+  }
+
+  // 1.2 Tema Renk Paletlerini Doldur (Sidebar & Navbar)
+  function initThemePalette() {
+    const sidebarPalette = document.getElementById('sidebarColorPalette');
+    const navSwatches = document.getElementById('navThemeSwatches');
+
+    const currentColor = activeCustomTheme || THEME_COLORS[0].color;
+
+    if (sidebarPalette) {
+      sidebarPalette.innerHTML = THEME_COLORS.map(t => `
+        <button class="palette-btn ${t.color === currentColor ? 'active' : ''}" 
+                style="background-color: ${t.color};"
+                data-color="${t.color}"
+                data-glow="${t.glow}"
+                title="${t.name}"
+                onclick="applyThemeColor('${t.color}', '${t.glow}')">
+        </button>
+      `).join('');
+    }
+
+    if (navSwatches) {
+      navSwatches.innerHTML = THEME_COLORS.map(t => `
+        <button class="theme-swatch ${t.color === currentColor ? 'active' : ''}" 
+                style="background-color: ${t.color};"
+                data-color="${t.color}"
+                data-glow="${t.glow}"
+                title="${t.name}"
+                onclick="applyThemeColor('${t.color}', '${t.glow}')">
+        </button>
+      `).join('');
+    }
+
+    if (activeCustomTheme) {
+      const match = THEME_COLORS.find(t => t.color === activeCustomTheme) || THEME_COLORS[0];
+      applyThemeColor(match.color, match.glow, false);
+    }
+  }
+
+  // Tema Rengi Uygulama
+  window.applyThemeColor = function(color, glow, save = true) {
+    activeCustomTheme = color;
+    if (save) {
+      localStorage.setItem('portfolio_theme', color);
+    }
+
+    document.documentElement.style.setProperty('--project-accent', color);
+    document.documentElement.style.setProperty('--project-glow', glow);
+    document.documentElement.style.setProperty('--apple-blue', color);
+
+    // Aktif buton sınıflarını güncelle
+    document.querySelectorAll('.palette-btn, .theme-swatch').forEach(el => {
+      if (el.dataset.color === color) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+    });
+  };
+
   // 2. Proje Değiştirme Fonksiyonu
-  function switchProject(projectId) {
+  window.switchProject = function(projectId) {
     const project = PORTFOLIO_DATA.projects.find(p => p.id === projectId);
     if (!project) return;
 
     currentProjectId = projectId;
-    projectSelect.value = projectId;
+    if (projectSelect) {
+      projectSelect.value = projectId;
+    }
 
-    // CSS Teması ve Vurgu Rengini Güncelle
-    document.documentElement.style.setProperty('--project-accent', project.primaryColor);
-    document.documentElement.style.setProperty('--project-glow', project.accentGlow);
+    // Sol sidebar aktif öğeyi güncelle
+    document.querySelectorAll('.side-project-item').forEach(item => {
+      if (item.dataset.projectId === projectId) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
+    // Eğer kullanıcı özel bir tema seçmediyse projenin kendi rengini kullan
+    if (!activeCustomTheme) {
+      document.documentElement.style.setProperty('--project-accent', project.primaryColor);
+      document.documentElement.style.setProperty('--project-glow', project.accentGlow);
+    }
 
     if (activeProjectLabel) {
       activeProjectLabel.textContent = project.name;
@@ -60,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.spotlight) {
       window.spotlight.refreshCards();
     }
-  }
+  };
 
   // 3. 3x3 Bento Grid Render Motoru (Ortada Uygulama Ekranı - 9 Kutu)
   function renderBentoGrid(p) {
@@ -458,6 +560,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Başlangıç Yüklemesi
   initProjectSelector();
+  initSidebarProjectList();
+  initThemePalette();
   switchProject(currentProjectId);
   renderGallery('all');
   renderSkills();

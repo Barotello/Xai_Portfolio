@@ -24,7 +24,6 @@
   <header class="nav-wrapper">
     <nav class="apple-nav" aria-label="Ana Menü">
       <a href="#hero" class="nav-brand">
-        <span class="brand-dot"></span>
         <span>Portfolio</span>
       </a>
       <ul class="nav-links">
@@ -32,9 +31,55 @@
         <li><a href="#galeri" class="nav-link">Tüm Tasarımlar</a></li>
         <li><a href="#hakkimda" class="nav-link">Yetkinlikler</a></li>
       </ul>
+      
+      <!-- Quick Theme Switcher in Navbar -->
+      <div class="nav-theme-picker" title="Tema Rengi Seçin">
+        <span class="theme-label-sm">Tema:</span>
+        <div class="theme-swatches" id="navThemeSwatches">
+          <!-- JS ile doldurulacak -->
+        </div>
+      </div>
+
       <a href="#iletisim" class="nav-cta">İletişime Geç</a>
     </nav>
   </header>
+
+  <!-- LEFT FLOATING PROJECT LIST & THEME PANEL (Arka plandan ayrı, yuvarlatılmış köşeli) -->
+  <aside id="projectSidebar" class="project-sidebar" aria-label="Projeler Menüsü">
+    <div class="sidebar-header">
+      <div class="sidebar-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+        </svg>
+      </div>
+      <div>
+        <div class="sidebar-title">Projeler</div>
+        <div class="sidebar-subtitle">Hızlı Seçim</div>
+      </div>
+    </div>
+
+    <!-- Proje İsimleri Listesi -->
+    <div id="sidebarProjectList" class="sidebar-project-list">
+      <!-- Javascript ile dinamik doldurulacak -->
+    </div>
+
+    <!-- Tema Rengi Seçim Bölümü -->
+    <div class="sidebar-theme-section">
+      <div class="sidebar-theme-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a10 10 0 0 1 10 10c0 5.5-4.5 10-10 10"></path>
+        </svg>
+        <span>Tema Rengi</span>
+      </div>
+      <div class="sidebar-color-palette" id="sidebarColorPalette">
+        <!-- JS ile renk hapları doldurulacak -->
+      </div>
+    </div>
+  </aside>
 
   <!-- HERO SECTION -->
   <main>

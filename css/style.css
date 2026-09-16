@@ -118,12 +118,47 @@ button, select {
   color: var(--text-white);
 }
 
-.brand-dot {
-  width: 8px;
-  height: 8px;
+/* Nav Theme Picker */
+.nav-theme-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.theme-label-sm {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.theme-swatches {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.theme-swatch {
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: var(--apple-green);
-  box-shadow: 0 0 10px var(--apple-green);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.theme-swatch:hover {
+  transform: scale(1.25);
+}
+
+.theme-swatch.active {
+  transform: scale(1.2);
+  border-color: #ffffff;
+  box-shadow: 0 0 8px currentColor;
 }
 
 .nav-links {
@@ -158,6 +193,171 @@ button, select {
 .nav-cta:hover {
   background: rgba(255, 255, 255, 0.22);
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* -------------------------------------------------------------
+   LEFT FLOATING PROJECT LIST (Arka plandan ayrı, yuvarlatılmış)
+------------------------------------------------------------- */
+.project-sidebar {
+  position: fixed;
+  left: 28px;
+  top: 150px;
+  z-index: 95;
+  width: 230px;
+  background: rgba(18, 18, 20, 0.82);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--project-accent);
+  transition: color 0.3s;
+}
+
+.sidebar-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.01em;
+}
+
+.sidebar-subtitle {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.sidebar-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.side-project-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+  text-align: left;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  width: 100%;
+}
+
+.side-project-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateX(3px);
+}
+
+.side-project-item.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--project-accent);
+  box-shadow: 0 4px 16px var(--project-glow);
+}
+
+.side-project-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-project-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.side-project-cat {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.side-project-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.side-project-item.active .side-project-dot {
+  background: var(--project-accent);
+  box-shadow: 0 0 8px var(--project-accent);
+}
+
+/* Sidebar Theme Section */
+.sidebar-theme-section {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-theme-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.sidebar-color-palette {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 2px;
+}
+
+.palette-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  outline: none;
+}
+
+.palette-btn:hover {
+  transform: scale(1.2);
+}
+
+.palette-btn.active {
+  transform: scale(1.15);
+  border-color: #ffffff;
+  box-shadow: 0 0 10px currentColor;
 }
 
 /* -------------------------------------------------------------
@@ -1286,6 +1486,27 @@ button, select {
 /* -------------------------------------------------------------
    RESPONSIVE BREAKPOINTS
 ------------------------------------------------------------- */
+@media (max-width: 1400px) {
+  .project-sidebar {
+    position: static;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto 36px;
+    border-radius: 22px;
+  }
+
+  .sidebar-project-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .side-project-item {
+    width: auto;
+    flex: 1 1 220px;
+  }
+}
+
 @media (max-width: 1024px) {
   .bento-3x3-grid {
     grid-template-columns: repeat(2, 1fr);

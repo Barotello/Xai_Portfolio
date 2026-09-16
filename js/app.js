@@ -452,8 +452,12 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
-      <div style="display:flex; justify-content:flex-end;">
-        <button class="btn-primary" onclick="closeModal()">Anladım</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          ${project.liveUrl ? `<a href="${project.liveUrl}" target="_blank" rel="noopener" class="btn-primary" style="font-size:0.85rem; padding:8px 18px;">Canlı Demo ↗</a>` : ''}
+          ${project.githubUrl ? `<a href="${project.githubUrl}" target="_blank" rel="noopener" class="btn-secondary" style="font-size:0.85rem; padding:8px 18px;">GitHub Repo ↗</a>` : ''}
+        </div>
+        <button class="btn-secondary" onclick="closeModal()">Kapat</button>
       </div>
     `;
 
@@ -475,8 +479,11 @@ document.addEventListener('DOMContentLoaded', () => {
       <p style="font-size:1rem; color:var(--text-muted); line-height:1.5; margin-bottom:20px;">
         ${item.desc}
       </p>
-      <div style="display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08);">
-        <span style="font-size:0.85rem; color:var(--text-muted);">${item.type}</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08); flex-wrap:wrap; gap:10px;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          ${item.liveUrl ? `<a href="${item.liveUrl}" target="_blank" rel="noopener" class="btn-primary" style="font-size:0.85rem; padding:8px 16px;">Canlı Demo ↗</a>` : ''}
+          ${item.githubUrl ? `<a href="${item.githubUrl}" target="_blank" rel="noopener" class="btn-secondary" style="font-size:0.85rem; padding:8px 16px;">GitHub Repo ↗</a>` : ''}
+        </div>
         <button class="btn-secondary" onclick="closeModal()">Kapat</button>
       </div>
     `;

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apple tasarım estetiğinde hazırlanmış ürün tasarımı, mobil arayüzler ve 3x3 Bento Grid vitrin portfolyosu.">
+  <meta name="keywords" content="UI/UX Tasarım, Apple Bento Grid, Ürün Tasarımcısı, Mobil Arayüz, iOS Tasarım, Portfolyo">
+  <meta name="author" content="Emre Yıldız">
+  
+  <title>Tasarım & İçerik Portfolyosu — Apple Bento Deneyimi</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- FLOATING APPLE FROSTED NAVBAR -->
+  <header class="nav-wrapper">
+    <nav class="apple-nav" aria-label="Ana Menü">
+      <a href="#hero" class="nav-brand">
+        <span class="brand-dot"></span>
+        <span>Portfolio</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#vitrin" class="nav-link">Bento Vitrini</a></li>
+        <li><a href="#galeri" class="nav-link">Tüm Tasarımlar</a></li>
+        <li><a href="#hakkimda" class="nav-link">Yetkinlikler</a></li>
+      </ul>
+      <a href="#iletisim" class="nav-cta">İletişime Geç</a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <main>
+    <section id="hero" class="hero-section">
+      <div class="hero-glow"></div>
+      <div class="container hero-content">
+        
+        <div class="status-pill">
+          <span class="pulse-circle"></span>
+          <span>Yeni Projeler & İş Birlikleri İçin Müsait</span>
+        </div>
+
+        <h1 class="hero-title">
+          Fikirler. Deneyimler.<br>Kusursuz Detaylar.
+        </h1>
+
+        <p class="hero-subtitle">
+          Apple standartlarında yalınlık, yüksek performanslı mikro-etkileşimler ve kullanıcıyı ilk saniyede etkileyen dijital ürün mimarileri tasarlıyorum.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#vitrin" class="btn-primary">
+            <span>Uygulamaları İncele</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7V17"/>
+            </svg>
+          </a>
+          <a href="#galeri" class="btn-secondary">
+            <span>Tüm Çalışmalar</span>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-value">7+</div>
+            <div class="stat-label">Yıl Tecrübe</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">45+</div>
+            <div class="stat-label">Dijital Ürün</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">1.4M+</div>
+            <div class="stat-label">Aktif Kullanıcı</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Tasarım Ödülü</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------------
+         THE BENTO SHOWCASE (3x3 Layout inspired by user's Apple reference)
+         Merkezdeki kutuda telefon ekranı, etrafında önem derecesine göre kartlar
+    ------------------------------------------------------------- -->
+    <section id="vitrin" class="bento-showcase">
+      <div class="container">
+        
+        <!-- Apple Comparison / Selector Header -->
+        <div class="bento-header">
+          <div class="bento-header-left">
+            <h2 class="bento-headline">
+              Geçiş yapmaya değer mi?<br>Hem de nasıl.
+            </h2>
+            <p class="bento-subline">
+              <span id="activeProjectLabel" class="project-name-highlight">Aura Pay</span> ile sunulan tasarım özellikleri ve yenilikçi detaylar.
+            </p>
+          </div>
+
+          <!-- Apple Style Project Switcher -->
+          <div class="apple-selector-box">
+            <label for="projectSelect" class="selector-label">Karşılaştırmak ve incelemek için bir proje seçin:</label>
+            <div class="selector-dropdown-wrapper">
+              <select id="projectSelect" class="apple-select" aria-label="İncelenecek Projeyi Seçin">
+                <!-- Javascript ile dinamik doldurulur -->
+              </select>
+              <svg class="selector-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3x3 BENTO GRID (Tam Ortada Canlı Cihaz Ekranı!) -->
+        <div id="bentoGrid" class="bento-3x3-grid">
+          <!-- Javascript ile 9 kutu olarak dinamik render edilir -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DESIGN GALLERY SECTION -->
+    <section id="galeri" class="gallery-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Geniş Portfolyo</span>
+          <h2 class="section-title">Seçilmiş Tasarımlar & Arayüzler</h2>
+          <p class="section-desc">Farklı sektörler için geliştirilmiş kullanıcı deneyimi, mobil ve web platformları.</p>
+        </div>
+
+        <div class="gallery-filters" role="group" aria-label="Kategori Filtreleri">
+          <button class="filter-btn active" data-filter="all">Tümü</button>
+          <button class="filter-btn" data-filter="fintech">Fintech</button>
+          <button class="filter-btn" data-filter="içerik">Otomotiv & İçerik</button>
+          <button class="filter-btn" data-filter="iot">IoT & Donanım</button>
+          <button class="filter-btn" data-filter="yaşam">Sağlık & Yaşam</button>
+          <button class="filter-btn" data-filter="sistem">Tasarım Sistemleri</button>
+        </div>
+
+        <div id="galleryGrid" class="gallery-grid">
+          <!-- Javascript ile render edilir -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT & SKILLS SECTION -->
+    <section id="hakkimda" class="about-section">
+      <div class="container">
+        <div class="about-bento">
+          
+          <div class="about-card">
+            <div>
+              <span class="section-tag">Felsefe & Yaklaşım</span>
+              <h3 style="font-size: 1.8rem; font-weight:700; color:#fff; margin: 12px 0 16px;">
+                "Tasarım sadece nasıl göründüğü değil, nasıl çalıştığıdır."
+              </h3>
+              <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 20px;">
+                Steve Jobs'un felsefesini modern dijital ürünlere taşıyarak, gereksiz karmaşıklığı ortadan kaldırıyor; tipografi, boşluk hiyerarşisi ve milisaniyelik mikro-etkileşimlerle akıcı ve bağımlılık yaratan deneyimler üretiyorum.
+              </p>
+            </div>
+            
+            <div style="display:flex; gap:16px; align-items:center; padding-top:20px; border-top:1px solid var(--border-subtle);">
+              <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg, #0A84FF, #BF5AF2); display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff;">
+                EY
+              </div>
+              <div>
+                <div style="font-weight:600; color:#fff;">Emre Yıldız</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Lead Product Designer & Design Architect</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-card">
+            <span class="section-tag" style="margin-bottom:16px;">Yetenek & Teknoloji Yığını</span>
+            <div id="skillsContainer" class="skills-list">
+              <!-- Javascript ile dinamik doldurulur -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT FOOTER -->
+    <footer id="iletisim" class="footer">
+      <div class="container">
+        <div class="footer-cta-box">
+          <h2 class="footer-title">Birlikte olağanüstü bir ürün inşa edelim.</h2>
+          <p class="footer-desc">
+            Yeni bir mobil uygulama fikriniz mi var, yoksa mevcut ürününüzü Apple seviyesine mi taşımak istiyorsunuz?
+          </p>
+
+          <button id="copyEmailBtn" class="contact-email-btn" title="E-postayı kopyala">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>iletisim@emreyildiz.design</span>
+          </button>
+          
+          <div id="copyToast" class="copy-toast">✓ E-posta adresi panoya kopyalandı!</div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>© 2025 Emre Yıldız. Tüm hakları saklıdır. Apple Bento Grid Design System.</div>
+          <div class="footer-socials">
+            <a href="https://dribbble.com" target="_blank" rel="noopener" class="social-link">Dribbble</a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="social-link">GitHub</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="social-link">Twitter / X</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- INTERACTIVE MODAL OVERLAY -->
+  <div id="modalOverlay" class="modal-overlay" aria-hidden="true" role="dialog">
+    <div class="modal-card">
+      <button id="modalClose" class="modal-close" aria-label="Pencereyi Kapat">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/spotlight.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 /**
  * Apple Bento Grid Portfolio Application Logic
+ * BARAN DEMİRTAŞ - AI Design Specialist & Product Designer
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -59,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
               data-project-id="${p.id}"
               onclick="switchProject('${p.id}')">
         <span class="pill-indicator-dot"></span>
-        <span>${p.name}</span>
+        <span>${p.name.split(' — ')[0]}</span>
       </button>
     `).join('');
   }
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Tema Rengi Uygulama
-  window.applyThemeColor = function(color, glow, save = true) {
+  function applyThemeColor(color, glow, save = true) {
     activeCustomTheme = color;
     if (save) {
       localStorage.setItem('portfolio_theme', color);
@@ -106,10 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.remove('active');
       }
     });
-  };
+  }
+  window.applyThemeColor = applyThemeColor;
 
   // 2. Proje Değiştirme Fonksiyonu
-  window.switchProject = function(projectId) {
+  function switchProject(projectId) {
     const project = PORTFOLIO_DATA.projects.find(p => p.id === projectId);
     if (!project) return;
 
@@ -134,27 +136,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (activeProjectLabel) {
-      activeProjectLabel.textContent = project.name;
+      activeProjectLabel.textContent = project.name.split(' — ')[0];
     }
 
-    // Bento Grid'i Yeniden Render Et (Geçiş Animasyonuyla)
+    // Bento Grid'i Yeniden Render Et
     renderBentoGrid(project);
     
     // Spotlight kart listesini güncelle
     if (window.spotlight) {
       window.spotlight.refreshCards();
     }
-  };
+  }
+  window.switchProject = switchProject;
 
-  // 3. Bento Grid Render Motoru: Üstte 3 Kutu, Ortada Büyük Canlı Telefon
+  // 3. Bento Grid Render Motoru: Üstte 3 Kutu, Altta Sol Panel + Sağ Telefon Mockup
   function renderBentoGrid(p) {
+    if (!bentoGrid) return;
     const b = p.bento;
     const s = p.appScreen;
 
     bentoGrid.innerHTML = `
       <!-- ÜSTTE 3 TANE KUTUCUK -->
       <div class="bento-top-row">
-        <!-- KUTU 1: Sol Üst (Kamera / Hassasiyet / Mimari) -->
+        <!-- KUTU 1: Sol Üst (Tasarım Modeli & Kullanılabilirlik) -->
         <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topLeft')">
           <div class="card-header">
             <div class="card-tag">${b.topLeft.tag}</div>
@@ -167,11 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="card-footer">
             <span class="card-pill-badge">${b.topLeft.badge}</span>
-            <span class="card-desc" style="font-size:0.75rem;">${b.topLeft.desc.substring(0, 42)}...</span>
+            <span class="card-desc" style="font-size:0.75rem;">${b.topLeft.desc.substring(0, 48)}...</span>
           </div>
         </div>
 
-        <!-- KUTU 2: Üst Orta (A20 / Apple Silicon Çip & Çekirdek Gücü) -->
+        <!-- KUTU 2: Üst Orta (Çekirdek Gücü / Entegrasyon / Metrik) -->
         <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topCenter')">
           <div class="card-header">
             <div class="card-tag">${b.topCenter.tag}</div>
@@ -182,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.61 1.34-.55.63-1.03 1.68-.9 2.7.99.08 2.02-.51 2.59-1.19z"/>
               </svg>
               <div class="chip-name">CORE</div>
-              <div class="chip-badge">PRO</div>
+              <div class="chip-badge">AI</div>
             </div>
             <div class="card-metric-label" style="font-weight:600; color:#fff; margin-top:10px;">${b.topCenter.metric}</div>
             <div class="card-desc" style="font-size:0.75rem;">${b.topCenter.sub}</div>
@@ -192,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
 
-        <!-- KUTU 3: Sağ Üst (Pil / Performans / Memnuniyet) -->
+        <!-- KUTU 3: Sağ Üst (Kullanıcı Etkisi & Güvenilirlik) -->
         <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topRight')">
           <div class="card-header">
             <div class="card-tag">${b.topRight.tag}</div>
@@ -213,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
-      <!-- ALTTRA: SOLDA PROJELER LİSTESİ, SAĞDA TELEFON (SPLIT STAGE) -->
+      <!-- ALTTRA: SOLDA PROJELER LİSTESİ, SAĞDA BÜYÜK TELEFON (SPLIT STAGE) -->
       <div class="bento-split-stage">
         <!-- SOL PANEL: PROJELER LİSTESİ -->
         <div class="bento-project-list-panel">
@@ -227,8 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
               </svg>
             </div>
             <div>
-              <div class="panel-title">Projeler</div>
-              <div class="panel-subtitle">İncelemek için seçin</div>
+              <div class="panel-title">Projeler & Arayüzler</div>
+              <div class="panel-subtitle">Canlı ekranı görmek için tıklayın</div>
             </div>
           </div>
 
@@ -238,8 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
                       onclick="switchProject('${item.id}')"
                       title="${item.name}">
                 <div>
-                  <div class="panel-project-name">${item.name.split(' - ')[0]}</div>
-                  <div class="panel-project-meta">${item.category} • ${item.year}</div>
+                  <div class="panel-project-name">${item.name.split(' — ')[0]}</div>
+                  <div class="panel-project-meta">${item.category.split('&')[0]} • ${item.year}</div>
                 </div>
                 <span class="panel-project-dot"></span>
               </button>
@@ -247,8 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="panel-active-summary">
-            <div style="font-weight:600; color:#fff; margin-bottom:4px;">${p.badge}</div>
-            <div>${p.headline}</div>
+            <div style="font-weight:600; color:#fff; margin-bottom:4px; font-size:0.88rem;">${p.badge}</div>
+            <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.4;">${p.headline}</div>
           </div>
         </div>
 
@@ -270,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <!-- Telefon İçi Uygulama Ekranı -->
             <div class="phone-screen">
-              <!-- Üst Cüzdan/Profil Kartı -->
+              <!-- Üst Cüzdan/Dashboard Kartı -->
               <div class="app-hero-card">
                 <div class="app-card-glow"></div>
                 <div class="app-balance-label">${s.title}</div>
@@ -314,50 +318,116 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div style="margin-top: 18px; text-align: center; z-index: 2;">
-            <div style="font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing:-0.02em;">${p.name}</div>
-            <div style="font-size: 0.88rem; color: var(--text-muted); margin-top:4px; max-width:480px; line-height:1.45;">${p.subheadline}</div>
+            <div style="font-size: 1.25rem; font-weight: 700; color: #fff; letter-spacing:-0.02em;">${p.name}</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top:6px; max-width:520px; line-height:1.5;">${p.subheadline}</div>
           </div>
         </div>
       </div>
     `;
   }
 
-  // SVG Helper
-  function getIconPath(name) {
-    switch (name) {
-      case 'arrow-up-right':
-        return '<path d="M7 17L17 7M17 7H7M17 7V17"/>';
-      case 'plus':
-        return '<path d="M12 5v14M5 12h14"/>';
-      case 'qr-code':
-        return '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h4v4h-4z"/>';
-      case 'sliders':
-        return '<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>';
-      case 'activity':
-      case 'heart':
-        return '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>';
-      case 'moon':
-        return '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-      case 'droplet':
-        return '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>';
-      case 'wand':
-        return '<path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9"/>';
-      case 'image':
-        return '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>';
-      case 'share':
-        return '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/>';
-      default:
-        return '<circle cx="12" cy="12" r="3"/>';
+  // 4. Profesyonel Deneyim Render Motoru (CV: ASELSAN, PrepLab.ai, Kişisel Projeler)
+  function renderExperience() {
+    const container = document.getElementById('experienceContainer');
+    if (!container || !PORTFOLIO_DATA.experience) return;
+
+    container.innerHTML = PORTFOLIO_DATA.experience.map(exp => `
+      <div class="experience-card">
+        <div class="experience-header">
+          <div class="experience-role-group">
+            <h3 class="experience-role">${exp.role}</h3>
+            <div class="experience-company-row">
+              <span class="experience-company">${exp.company}</span>
+              <span class="experience-location">• ${exp.location}</span>
+            </div>
+          </div>
+          <span class="experience-period">${exp.period}</span>
+        </div>
+
+        <ul class="experience-highlights">
+          ${exp.highlights.map(item => `
+            <li class="experience-item">
+              <span class="experience-bullet"></span>
+              <span>${item}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `).join('');
+  }
+
+  // 5. Temel Yetkinlikler Render Motoru (CV: 4 Core Competencies)
+  function renderCompetencies() {
+    const container = document.getElementById('competenciesContainer');
+    if (!container || !PORTFOLIO_DATA.competencies) return;
+
+    container.innerHTML = PORTFOLIO_DATA.competencies.map(comp => `
+      <div class="competency-card">
+        <div>
+          <div class="competency-head">
+            <div class="competency-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ${getIconPath(comp.icon)}
+              </svg>
+            </div>
+            <h3 class="competency-title">${comp.category}</h3>
+          </div>
+          <p class="competency-desc">${comp.desc}</p>
+        </div>
+
+        <div class="competency-skills-list">
+          ${comp.skills.map(skill => `
+            <span class="competency-skill-pill">${skill}</span>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 6. Eğitim & Sertifikalar Render Motoru (ODTÜ & Sertifikalar)
+  function renderCredentials() {
+    const eduContainer = document.getElementById('educationCard');
+    const certsContainer = document.getElementById('certificationsContainer');
+
+    if (eduContainer && PORTFOLIO_DATA.education) {
+      const edu = PORTFOLIO_DATA.education;
+      eduContainer.innerHTML = `
+        <div>
+          <span class="education-badge">Lisans Eğitimi</span>
+          <h3 class="education-school">${edu.school}</h3>
+          <p class="education-degree">${edu.degree}</p>
+        </div>
+        <div class="education-meta">
+          <span>Mezuniyet: <strong>${edu.year}</strong></span>
+          <span>•</span>
+          <span>${edu.location}</span>
+        </div>
+      `;
+    }
+
+    if (certsContainer && PORTFOLIO_DATA.certifications) {
+      certsContainer.innerHTML = PORTFOLIO_DATA.certifications.map(cert => `
+        <div class="cert-card">
+          <div>
+            <div class="cert-issuer">${cert.issuer}</div>
+            <h4 class="cert-title">${cert.name}</h4>
+          </div>
+          <p class="cert-desc">${cert.details}</p>
+        </div>
+      `).join('');
     }
   }
 
-  // 4. Tasarım Galerisi Render Motoru
+  // 7. Tasarım Galerisi Render Motoru
   function renderGallery(filter = 'all') {
     if (!galleryGrid) return;
     
     const filtered = filter === 'all' 
       ? PORTFOLIO_DATA.designGallery 
-      : PORTFOLIO_DATA.designGallery.filter(item => item.category.toLowerCase().includes(filter.toLowerCase()));
+      : PORTFOLIO_DATA.designGallery.filter(item => 
+          item.category.toLowerCase().includes(filter.toLowerCase()) ||
+          item.title.toLowerCase().includes(filter.toLowerCase())
+        );
 
     galleryGrid.innerHTML = filtered.map(item => `
       <div class="gallery-card" onclick="openGalleryModal('${item.id}')">
@@ -390,38 +460,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Yetkinlikler Bölümü Render
-  function renderSkills() {
-    const skillsContainer = document.getElementById('skillsContainer');
-    if (!skillsContainer) return;
-
-    skillsContainer.innerHTML = PORTFOLIO_DATA.skills.map(s => `
-      <div>
-        <div class="skill-category-title">${s.category}</div>
-        <div class="skill-tags">
-          ${s.items.map(item => `<span class="skill-tag">${item}</span>`).join('')}
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // 6. E-posta Kopyalama
+  // 8. E-posta Kopyalama Fonksiyonu
   if (copyEmailBtn) {
     copyEmailBtn.addEventListener('click', () => {
-      const email = PORTFOLIO_DATA.profile.socials.email;
+      const email = PORTFOLIO_DATA.profile.email;
       navigator.clipboard.writeText(email).then(() => {
         if (copyToast) {
           copyToast.style.display = 'block';
           setTimeout(() => {
             copyToast.style.display = 'none';
-          }, 2500);
+          }, 2600);
         }
       });
     });
   }
 
-  // 7. Modal Yönetimi
-  window.openProjectModal = function(projectId, sectionKey) {
+  // 9. Modal Yönetimi
+  function openProjectModal(projectId, sectionKey) {
     const project = PORTFOLIO_DATA.projects.find(p => p.id === projectId);
     if (!project || !modalOverlay) return;
 
@@ -435,19 +490,19 @@ document.addEventListener('DOMContentLoaded', () => {
       </p>
       
       <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:20px; margin-bottom:24px;">
-        <h4 style="font-size:0.95rem; font-weight:600; color:#fff; margin-bottom:8px;">Tasarım Yaklaşımı ve Mimari</h4>
+        <h4 style="font-size:0.95rem; font-weight:600; color:#fff; margin-bottom:8px;">Tasarım Yaklaşımı ve Metodoloji</h4>
         <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5;">
-          ${project.bento.topLeft.desc} Bu proje geliştirilirken Apple İnsan Arayüz Yönergeleri (HIG) esas alınmış, kontrast seviyeleri ve dokunsal geri bildirimler kusursuzlaştırılmıştır.
+          ${project.bento.topLeft.desc} Bu proje geliştirilirken Apple İnsan Arayüz Yönergeleri (HIG) ve kullanıcı ergonomisi esas alınmış; bilgi yoğunluğu bilişsel yükü azaltacak şekilde optimize edilmiştir.
         </p>
       </div>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;">
         <div style="background:rgba(255,255,255,0.03); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
-          <div style="font-size:0.75rem; color:var(--text-muted);">Performans Metriği</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Performans & Hız</div>
           <div style="font-size:1.2rem; font-weight:700; color:#fff; margin-top:4px;">${project.bento.topCenter.metric}</div>
         </div>
         <div style="background:rgba(255,255,255,0.03); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
-          <div style="font-size:0.75rem; color:var(--text-muted);">Kullanıcı Değerlendirmesi</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Kullanıcı Etkisi</div>
           <div style="font-size:1.2rem; font-weight:700; color:#fff; margin-top:4px;">${project.bento.topRight.metric}</div>
         </div>
       </div>
@@ -462,9 +517,10 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     modalOverlay.style.display = 'flex';
-  };
+  }
+  window.openProjectModal = openProjectModal;
 
-  window.openGalleryModal = function(galleryId) {
+  function openGalleryModal(galleryId) {
     const item = PORTFOLIO_DATA.designGallery.find(g => g.id === galleryId);
     if (!item || !modalOverlay) return;
 
@@ -489,13 +545,15 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     modalOverlay.style.display = 'flex';
-  };
+  }
+  window.openGalleryModal = openGalleryModal;
 
-  window.closeModal = function() {
+  function closeModal() {
     if (modalOverlay) {
       modalOverlay.style.display = 'none';
     }
-  };
+  }
+  window.closeModal = closeModal;
 
   if (modalClose) {
     modalClose.addEventListener('click', closeModal);
@@ -507,11 +565,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // SVG Helper
+  function getIconPath(name) {
+    switch (name) {
+      case 'arrow-up-right':
+        return '<path d="M7 17L17 7M17 7H7M17 7V17"/>';
+      case 'plus':
+        return '<path d="M12 5v14M5 12h14"/>';
+      case 'qr-code':
+        return '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h4v4h-4z"/>';
+      case 'sliders':
+        return '<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>';
+      case 'activity':
+      case 'heart':
+        return '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>';
+      case 'wand':
+      case 'sparkles':
+        return '<path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9"/>';
+      case 'image':
+        return '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>';
+      case 'share':
+        return '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/>';
+      case 'layers':
+        return '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>';
+      case 'cpu':
+        return '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>';
+      case 'feather':
+        return '<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/>';
+      case 'shield':
+        return '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>';
+      case 'award':
+      case 'star':
+        return '<circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>';
+      case 'camera':
+        return '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>';
+      case 'zap':
+        return '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>';
+      default:
+        return '<circle cx="12" cy="12" r="3"/>';
+    }
+  }
+
   // Başlangıç Yüklemesi
   initProjectSelector();
   initProjectPills();
   initThemePalette();
   switchProject(currentProjectId);
+  renderExperience();
+  renderCompetencies();
+  renderCredentials();
   renderGallery('all');
-  renderSkills();
 });

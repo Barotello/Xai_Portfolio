@@ -111,11 +111,41 @@ button, select {
 .nav-brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-brand-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--project-accent, #0A84FF), #BF5AF2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  box-shadow: 0 0 10px var(--project-glow, rgba(10, 132, 255, 0.4));
+}
+
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-brand-name {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   letter-spacing: -0.01em;
   color: var(--text-white);
+  line-height: 1.1;
+}
+
+.nav-brand-sub {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 /* Nav Theme Picker */
@@ -1560,6 +1590,478 @@ button, select {
 }
 
 /* -------------------------------------------------------------
+   PROFESYONEL DENEYİM BÖLÜMÜ (CV: ASELSAN, PrepLab.ai, Kişisel)
+------------------------------------------------------------- */
+.experience-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.experience-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.experience-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: 36px 40px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--project-accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.experience-card:hover {
+  border-color: var(--border-card-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.experience-card:hover::before {
+  opacity: 1;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.experience-role-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.experience-role {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.experience-company-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.experience-company {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--project-accent);
+}
+
+.experience-location {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.experience-period {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.experience-highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.experience-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.experience-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--project-accent);
+  margin-top: 9px;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--project-glow);
+}
+
+/* -------------------------------------------------------------
+   TEMEL YETKİNLİKLER (CORE COMPETENCIES 4x BENTO)
+------------------------------------------------------------- */
+.competencies-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border-subtle);
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+}
+
+.competencies-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.competency-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.competency-card:hover {
+  border-color: var(--border-card-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.competency-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.competency-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--project-accent);
+  flex-shrink: 0;
+}
+
+.competency-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.competency-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 22px;
+}
+
+.competency-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.competency-skill-pill {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #e5e5ea;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s ease;
+}
+
+.competency-skill-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--project-accent);
+  color: #fff;
+}
+
+/* -------------------------------------------------------------
+   EĞİTİM & SERTİFİKALAR BÖLÜMÜ (CREDENTIALS)
+------------------------------------------------------------- */
+.credentials-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.credentials-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.education-card {
+  background: linear-gradient(180deg, #151518 0%, #0d0d0f 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.education-card::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, var(--project-glow) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.education-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--apple-blue);
+  background: rgba(10, 132, 255, 0.12);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.education-school {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.education-degree {
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.education-meta {
+  display: flex;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.cert-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+}
+
+.cert-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-card-hover);
+  transform: translateY(-2px);
+}
+
+.cert-issuer {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--project-accent);
+  margin-bottom: 6px;
+}
+
+.cert-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.cert-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* -------------------------------------------------------------
+   CONTACT CARDS (HIZLI İLETİŞİM KARTLARI)
+------------------------------------------------------------- */
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 36px;
+  text-align: left;
+}
+
+.contact-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+}
+
+.contact-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+}
+
+.contact-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--project-accent);
+  margin-bottom: 12px;
+}
+
+.contact-card-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.contact-card-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  word-break: break-all;
+  line-height: 1.3;
+}
+
+.contact-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.contact-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.contact-action-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.contact-action-btn.primary {
+  background: var(--project-accent);
+  border-color: transparent;
+  color: #fff;
+}
+
+.contact-action-btn.primary:hover {
+  filter: brightness(1.15);
+}
+
+.contact-status-tag {
+  font-size: 0.75rem;
+  color: var(--apple-green);
+  background: rgba(48, 209, 88, 0.12);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+}
+
+/* Copy Toast */
+.copy-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #1c1c1e;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #30d158;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  display: none;
+  animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* -------------------------------------------------------------
    RESPONSIVE BREAKPOINTS
 ------------------------------------------------------------- */
 @media (max-width: 1024px) {
@@ -1580,18 +2082,30 @@ button, select {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .about-bento {
+  .competencies-grid {
     grid-template-columns: 1fr;
+  }
+
+  .credentials-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .apple-nav {
-    gap: 16px;
-    padding: 8px 16px;
+    gap: 12px;
+    padding: 8px 14px;
   }
   
   .nav-links {
+    display: none;
+  }
+
+  .nav-brand-sub {
     display: none;
   }
 
@@ -1612,6 +2126,14 @@ button, select {
     grid-template-columns: 1fr;
   }
 
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
   .apple-selector-box {
     width: 100%;
   }
@@ -1619,5 +2141,9 @@ button, select {
   .bento-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .experience-card {
+    padding: 24px 20px;
   }
 }

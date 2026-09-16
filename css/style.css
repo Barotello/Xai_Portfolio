@@ -4,11 +4,12 @@
  */
 
 :root {
+  /* Dark Mode: Deep Black & Apple Blue */
   --bg-black: #000000;
   --bg-subtle: #08080a;
-  --bg-card: #151517;
-  --bg-card-hover: #1c1c1f;
-  --bg-card-inner: #0d0d0f;
+  --bg-card: #121215;
+  --bg-card-hover: #19191d;
+  --bg-card-inner: #09090b;
   
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-focus: rgba(255, 255, 255, 0.2);
@@ -20,13 +21,17 @@
   --text-white: #ffffff;
 
   --apple-blue: #0A84FF;
-  --apple-green: #30D158;
-  --apple-purple: #BF5AF2;
-  --apple-amber: #FF9F0A;
-  --apple-red: #FF453A;
-
-  --project-accent: var(--apple-blue);
-  --project-glow: rgba(10, 132, 255, 0.2);
+  --project-accent: #0A84FF;
+  --project-glow: rgba(10, 132, 255, 0.28);
+  
+  --nav-bg: rgba(20, 20, 22, 0.72);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --pill-bg: rgba(255, 255, 255, 0.06);
+  --pill-border: rgba(255, 255, 255, 0.1);
+  --pill-hover-bg: rgba(255, 255, 255, 0.12);
+  --btn-secondary-bg: rgba(255, 255, 255, 0.06);
+  --btn-secondary-border: rgba(255, 255, 255, 0.12);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --radius-card: 24px;
@@ -34,8 +39,8 @@
   --radius-pill: 9999px;
   
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
-  --shadow-phone: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px var(--project-glow);
 }
+
 
 /* Reset & Base */
 *, *::before, *::after {
@@ -148,48 +153,6 @@ button, select {
   font-weight: 400;
 }
 
-/* Nav Theme Picker */
-.nav-theme-picker {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.theme-label-sm {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.theme-swatches {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.theme-swatch {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  outline: none;
-}
-
-.theme-swatch:hover {
-  transform: scale(1.25);
-}
-
-.theme-swatch.active {
-  transform: scale(1.2);
-  border-color: #ffffff;
-  box-shadow: 0 0 8px currentColor;
-}
 
 .nav-links {
   display: flex;
@@ -209,6 +172,12 @@ button, select {
   color: var(--text-white);
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .nav-cta {
   background: rgba(255, 255, 255, 0.12);
   color: var(--text-white);
@@ -218,11 +187,35 @@ button, select {
   font-weight: 500;
   border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-cta:hover {
   background: rgba(255, 255, 255, 0.22);
   border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.nav-github-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.nav-github-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  transform: scale(1.08);
 }
 
 /* -------------------------------------------------------------
@@ -283,11 +276,12 @@ button, select {
   line-height: 1.08;
   letter-spacing: -0.035em;
   color: var(--text-white);
-  background: linear-gradient(180deg, #FFFFFF 20%, rgba(255, 255, 255, 0.62) 100%);
+  background: linear-gradient(180deg, #FFFFFF 20%, rgba(255, 255, 255, 0.65) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 20px;
 }
+
 
 .hero-subtitle {
   font-size: clamp(1.05rem, 1.8vw, 1.3rem);
@@ -324,6 +318,7 @@ button, select {
   filter: brightness(1.15);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(10, 132, 255, 0.5);
+  color: #ffffff;
 }
 
 .btn-secondary {
@@ -332,17 +327,18 @@ button, select {
   gap: 8px;
   padding: 12px 24px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--btn-secondary-bg);
   color: var(--text-main);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--btn-secondary-border);
   font-size: 0.95rem;
   font-weight: 500;
   transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--pill-hover-bg);
   border-color: var(--border-focus);
+  color: var(--text-white);
 }
 
 .hero-stats {
@@ -350,12 +346,13 @@ button, select {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 24px 30px;
-  background: rgba(22, 22, 23, 0.5);
+  background: var(--bg-card);
   backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
   max-width: 720px;
   margin: 0 auto;
+  box-shadow: var(--shadow-card);
 }
 
 .stat-item {
@@ -363,9 +360,9 @@ button, select {
 }
 
 .stat-value {
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--project-accent);
   letter-spacing: -0.02em;
 }
 
@@ -1511,6 +1508,17 @@ button, select {
   font-weight: 500;
 }
 
+.footer-minimal {
+  padding: 40px 0;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-black);
+}
+
+.footer-minimal .footer-bottom {
+  padding-top: 0;
+  border-top: none;
+}
+
 .footer-bottom {
   display: flex;
   align-items: center;
@@ -1944,8 +1952,8 @@ button, select {
 }
 
 .contact-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: 18px;
   padding: 20px;
   display: flex;
@@ -1955,16 +1963,18 @@ button, select {
 }
 
 .contact-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.16);
+  background: var(--bg-card-hover);
+  border-color: var(--border-card-hover);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
 }
 
 .contact-card-icon {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1983,7 +1993,7 @@ button, select {
 .contact-card-value {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-white);
   word-break: break-all;
   line-height: 1.3;
 }
@@ -2003,14 +2013,15 @@ button, select {
   border-radius: var(--radius-pill);
   font-size: 0.78rem;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--pill-bg);
+  color: var(--text-main);
+  border: 1px solid var(--pill-border);
   transition: all 0.2s ease;
 }
 
 .contact-action-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--pill-hover-bg);
+  color: var(--project-accent);
 }
 
 .contact-action-btn.primary {
@@ -2021,12 +2032,13 @@ button, select {
 
 .contact-action-btn.primary:hover {
   filter: brightness(1.15);
+  color: #fff;
 }
 
 .contact-status-tag {
   font-size: 0.75rem;
-  color: var(--apple-green);
-  background: rgba(48, 209, 88, 0.12);
+  color: var(--apple-blue);
+  background: rgba(10, 132, 255, 0.1);
   padding: 4px 10px;
   border-radius: var(--radius-pill);
   font-weight: 500;
@@ -2037,14 +2049,14 @@ button, select {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: #1c1c1e;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #30d158;
+  background: var(--bg-card);
+  border: 1px solid var(--border-focus);
+  color: var(--apple-blue);
   padding: 12px 20px;
   border-radius: var(--radius-pill);
   font-size: 0.88rem;
   font-weight: 600;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  box-shadow: var(--shadow-card);
   z-index: 2000;
   display: none;
   animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);

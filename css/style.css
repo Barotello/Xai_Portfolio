@@ -516,6 +516,134 @@ button, select {
   width: 100%;
 }
 
+/* Bento Split Stage (Solda Projeler Listesi, Sağda Telefon) */
+.bento-split-stage {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 36px;
+  align-items: center;
+  width: 100%;
+}
+
+.bento-project-list-panel {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-subtle);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-project-list-panel:hover {
+  border-color: var(--border-card-hover);
+  transform: translateY(-2px);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.panel-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--project-accent);
+  transition: color 0.3s;
+}
+
+.panel-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.02em;
+}
+
+.panel-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.panel-projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel-project-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  width: 100%;
+}
+
+.panel-project-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateX(4px);
+}
+
+.panel-project-item.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--project-accent);
+  box-shadow: 0 4px 18px var(--project-glow);
+}
+
+.panel-project-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.panel-project-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.panel-project-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.panel-project-item.active .panel-project-dot {
+  background: var(--project-accent);
+  box-shadow: 0 0 10px var(--project-accent);
+}
+
+.panel-active-summary {
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
 .bento-phone-stage {
   display: flex;
   flex-direction: column;
@@ -523,7 +651,7 @@ button, select {
   justify-content: center;
   position: relative;
   width: 100%;
-  padding: 20px 0 10px;
+  padding: 10px 0;
 }
 
 .stage-ambient-glow {
@@ -1441,6 +1569,11 @@ button, select {
 
   .bento-top-row .bento-card:last-child {
     grid-column: 1 / -1;
+  }
+
+  .bento-split-stage {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
   
   .gallery-grid {

@@ -213,70 +213,110 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
-      <!-- ALTTRA ORTALANMIŞ BÜYÜK TELEFON MOCKUP'I (MERKEZ SAHNE) -->
-      <div class="bento-phone-stage screen-update" id="centerAppCard">
-        <div class="stage-ambient-glow"></div>
-        
-        <!-- Büyük & Net Flagship iPhone -->
-        <div class="iphone-frame-lg">
-          <!-- Dynamic Island & Durum Çubuğu -->
-          <div class="phone-top-bar">
-            <span>09:41</span>
-            <div class="dynamic-island">
-              <div class="island-camera"></div>
-              <div class="island-wave"></div>
+      <!-- ALTTRA: SOLDA PROJELER LİSTESİ, SAĞDA TELEFON (SPLIT STAGE) -->
+      <div class="bento-split-stage">
+        <!-- SOL PANEL: PROJELER LİSTESİ -->
+        <div class="bento-project-list-panel">
+          <div class="panel-header">
+            <div class="panel-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+              </svg>
             </div>
-            <span>5G 100%</span>
+            <div>
+              <div class="panel-title">Projeler</div>
+              <div class="panel-subtitle">İncelemek için seçin</div>
+            </div>
           </div>
 
-          <!-- Telefon İçi Uygulama Ekranı -->
-          <div class="phone-screen">
-            <!-- Üst Cüzdan/Profil Kartı -->
-            <div class="app-hero-card">
-              <div class="app-card-glow"></div>
-              <div class="app-balance-label">${s.title}</div>
-              <div class="app-balance-val">${s.balance}</div>
-              <span class="app-balance-badge">${s.growth}</span>
-              <div class="app-card-meta">
-                <span>${s.cardHolder}</span>
-                <span>${s.cardNumber}</span>
+          <div class="panel-projects-list">
+            ${PORTFOLIO_DATA.projects.map(item => `
+              <button class="panel-project-item ${item.id === p.id ? 'active' : ''}" 
+                      onclick="switchProject('${item.id}')"
+                      title="${item.name}">
+                <div>
+                  <div class="panel-project-name">${item.name.split(' - ')[0]}</div>
+                  <div class="panel-project-meta">${item.category} • ${item.year}</div>
+                </div>
+                <span class="panel-project-dot"></span>
+              </button>
+            `).join('')}
+          </div>
+
+          <div class="panel-active-summary">
+            <div style="font-weight:600; color:#fff; margin-bottom:4px;">${p.badge}</div>
+            <div>${p.headline}</div>
+          </div>
+        </div>
+
+        <!-- SAĞ SAHNE: BÜYÜK TELEFON MOCKUP'I -->
+        <div class="bento-phone-stage screen-update" id="centerAppCard">
+          <div class="stage-ambient-glow"></div>
+          
+          <!-- Büyük & Net Flagship iPhone -->
+          <div class="iphone-frame-lg">
+            <!-- Dynamic Island & Durum Çubuğu -->
+            <div class="phone-top-bar">
+              <span>09:41</span>
+              <div class="dynamic-island">
+                <div class="island-camera"></div>
+                <div class="island-wave"></div>
+              </div>
+              <span>5G 100%</span>
+            </div>
+
+            <!-- Telefon İçi Uygulama Ekranı -->
+            <div class="phone-screen">
+              <!-- Üst Cüzdan/Profil Kartı -->
+              <div class="app-hero-card">
+                <div class="app-card-glow"></div>
+                <div class="app-balance-label">${s.title}</div>
+                <div class="app-balance-val">${s.balance}</div>
+                <span class="app-balance-badge">${s.growth}</span>
+                <div class="app-card-meta">
+                  <span>${s.cardHolder}</span>
+                  <span>${s.cardNumber}</span>
+                </div>
+              </div>
+
+              <!-- Hızlı Aksiyon Butonları -->
+              <div class="app-actions-row">
+                ${s.quickActions.map(action => `
+                  <div class="app-action-btn" title="${action.label}">
+                    <svg class="app-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      ${getIconPath(action.icon)}
+                    </svg>
+                    <span class="app-action-label">${action.label}</span>
+                  </div>
+                `).join('')}
+              </div>
+
+              <!-- Son İşlemler / Akış Listesi -->
+              <div class="app-activity-list">
+                <div class="app-activity-header">Canlı Veri & Akış</div>
+                ${s.recentTransactions.map(item => `
+                  <div class="app-activity-item">
+                    <div class="app-item-info">
+                      <span class="app-item-title">${item.name}</span>
+                      <span class="app-item-cat">${item.category} • ${item.time}</span>
+                    </div>
+                    <span class="app-item-amount">${item.amount}</span>
+                  </div>
+                `).join('')}
               </div>
             </div>
 
-            <!-- Hızlı Aksiyon Butonları -->
-            <div class="app-actions-row">
-              ${s.quickActions.map(action => `
-                <div class="app-action-btn" title="${action.label}">
-                  <svg class="app-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    ${getIconPath(action.icon)}
-                  </svg>
-                  <span class="app-action-label">${action.label}</span>
-                </div>
-              `).join('')}
-            </div>
-
-            <!-- Son İşlemler / Akış Listesi -->
-            <div class="app-activity-list">
-              <div class="app-activity-header">Canlı Veri & Akış</div>
-              ${s.recentTransactions.map(item => `
-                <div class="app-activity-item">
-                  <div class="app-item-info">
-                    <span class="app-item-title">${item.name}</span>
-                    <span class="app-item-cat">${item.category} • ${item.time}</span>
-                  </div>
-                  <span class="app-item-amount">${item.amount}</span>
-                </div>
-              `).join('')}
-            </div>
+            <!-- Home Gösterge Çubuğu -->
+            <div class="phone-home-indicator"></div>
           </div>
 
-          <!-- Home Gösterge Çubuğu -->
-          <div class="phone-home-indicator"></div>
-        </div>
-
-        <div style="margin-top: 22px; text-align: center; z-index: 2;">
-          <div style="font-size: 1.25rem; font-weight: 700; color: #fff; letter-spacing:-0.02em;">${p.name}</div>
-          <div style="font-size: 0.9rem; color: var(--text-muted); margin-top:4px; max-width:520px; line-height:1.45;">${p.subheadline}</div>
+          <div style="margin-top: 18px; text-align: center; z-index: 2;">
+            <div style="font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing:-0.02em;">${p.name}</div>
+            <div style="font-size: 0.88rem; color: var(--text-muted); margin-top:4px; max-width:480px; line-height:1.45;">${p.subheadline}</div>
+          </div>
         </div>
       </div>
     `;

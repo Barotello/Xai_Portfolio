@@ -49,43 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 1.1 Sol Proje Listesini Doldur (Sidebar List)
-  function initSidebarProjectList() {
-    const list = document.getElementById('sidebarProjectList');
-    if (!list) return;
+  // 1.1 Hızlı Proje Haplarını Doldur (Pill Switcher)
+  function initProjectPills() {
+    const pillsContainer = document.getElementById('projectQuickPills');
+    if (!pillsContainer) return;
 
-    list.innerHTML = PORTFOLIO_DATA.projects.map(p => `
-      <button class="side-project-item ${p.id === currentProjectId ? 'active' : ''}" 
+    pillsContainer.innerHTML = PORTFOLIO_DATA.projects.map(p => `
+      <button class="project-pill-btn ${p.id === currentProjectId ? 'active' : ''}" 
               data-project-id="${p.id}"
-              onclick="switchProject('${p.id}')"
-              title="${p.name}">
-        <div class="side-project-info">
-          <span class="side-project-name">${p.name.split(' - ')[0]}</span>
-          <span class="side-project-cat">${p.category.split(' & ')[0]}</span>
-        </div>
-        <span class="side-project-dot"></span>
+              onclick="switchProject('${p.id}')">
+        <span class="pill-indicator-dot"></span>
+        <span>${p.name}</span>
       </button>
     `).join('');
   }
 
-  // 1.2 Tema Renk Paletlerini Doldur (Sidebar & Navbar)
+  // 1.2 Tema Renk Paletini Doldur (Navbar)
   function initThemePalette() {
-    const sidebarPalette = document.getElementById('sidebarColorPalette');
     const navSwatches = document.getElementById('navThemeSwatches');
-
     const currentColor = activeCustomTheme || THEME_COLORS[0].color;
-
-    if (sidebarPalette) {
-      sidebarPalette.innerHTML = THEME_COLORS.map(t => `
-        <button class="palette-btn ${t.color === currentColor ? 'active' : ''}" 
-                style="background-color: ${t.color};"
-                data-color="${t.color}"
-                data-glow="${t.glow}"
-                title="${t.name}"
-                onclick="applyThemeColor('${t.color}', '${t.glow}')">
-        </button>
-      `).join('');
-    }
 
     if (navSwatches) {
       navSwatches.innerHTML = THEME_COLORS.map(t => `
@@ -117,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.style.setProperty('--apple-blue', color);
 
     // Aktif buton sınıflarını güncelle
-    document.querySelectorAll('.palette-btn, .theme-swatch').forEach(el => {
+    document.querySelectorAll('.theme-swatch').forEach(el => {
       if (el.dataset.color === color) {
         el.classList.add('active');
       } else {
@@ -136,12 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
       projectSelect.value = projectId;
     }
 
-    // Sol sidebar aktif öğeyi güncelle
-    document.querySelectorAll('.side-project-item').forEach(item => {
-      if (item.dataset.projectId === projectId) {
-        item.classList.add('active');
+    // Proje hapları aktif durumunu güncelle
+    document.querySelectorAll('.project-pill-btn').forEach(btn => {
+      if (btn.dataset.projectId === projectId) {
+        btn.classList.add('active');
       } else {
-        item.classList.remove('active');
+        btn.classList.remove('active');
       }
     });
 
@@ -164,93 +146,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // 3. 3x3 Bento Grid Render Motoru (Ortada Uygulama Ekranı - 9 Kutu)
+  // 3. Bento Grid Render Motoru: Üstte 3 Kutu, Ortada Büyük Canlı Telefon
   function renderBentoGrid(p) {
     const b = p.bento;
     const s = p.appScreen;
 
     bentoGrid.innerHTML = `
-      <!-- KUTU 1: Sol Üst (Kamera / Hassasiyet / Mimari) -->
-      <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topLeft')">
-        <div class="card-header">
-          <div class="card-tag">${b.topLeft.tag}</div>
-          <div class="card-title">${b.topLeft.title}</div>
-        </div>
-        <div class="card-body">
-          <div class="card-camera-visual">
-            <div class="camera-lens-inner"></div>
+      <!-- ÜSTTE 3 TANE KUTUCUK -->
+      <div class="bento-top-row">
+        <!-- KUTU 1: Sol Üst (Kamera / Hassasiyet / Mimari) -->
+        <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topLeft')">
+          <div class="card-header">
+            <div class="card-tag">${b.topLeft.tag}</div>
+            <div class="card-title">${b.topLeft.title}</div>
           </div>
-        </div>
-        <div class="card-footer">
-          <span class="card-pill-badge">${b.topLeft.badge}</span>
-          <span class="card-desc" style="font-size:0.75rem;">${b.topLeft.desc.substring(0, 48)}...</span>
-        </div>
-      </div>
-
-      <!-- KUTU 2: Üst Orta (A20 / Apple Silicon Çip & Çekirdek Gücü) -->
-      <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topCenter')">
-        <div class="card-header">
-          <div class="card-tag">${b.topCenter.tag}</div>
-        </div>
-        <div class="card-body">
-          <div class="bionic-chip">
-            <svg class="chip-apple-logo" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.61 1.34-.55.63-1.03 1.68-.9 2.7.99.08 2.02-.51 2.59-1.19z"/>
-            </svg>
-            <div class="chip-name">CORE</div>
-            <div class="chip-badge">PRO</div>
-          </div>
-          <div class="card-metric-label" style="font-weight:600; color:#fff; margin-top:10px;">${b.topCenter.metric}</div>
-          <div class="card-desc" style="font-size:0.75rem;">${b.topCenter.sub}</div>
-        </div>
-        <div class="card-footer">
-          <span class="card-pill-badge">${b.topCenter.badge}</span>
-        </div>
-      </div>
-
-      <!-- KUTU 3: Sağ Üst (Pil / Performans / Memnuniyet) -->
-      <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topRight')">
-        <div class="card-header">
-          <div class="card-tag">${b.topRight.tag}</div>
-          <div class="card-title">${b.topRight.highlight}</div>
-        </div>
-        <div class="card-body">
-          <div class="card-metric-huge">${b.topRight.metric}</div>
-          <div class="battery-icon-wrapper">
-            <div class="battery-visual">
-              <div class="battery-fill"></div>
+          <div class="card-body">
+            <div class="card-camera-visual">
+              <div class="camera-lens-inner"></div>
             </div>
-            <span style="font-size:0.75rem; color:var(--apple-green); font-weight:600;">Optimal</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-pill-badge">${b.topLeft.badge}</span>
+            <span class="card-desc" style="font-size:0.75rem;">${b.topLeft.desc.substring(0, 42)}...</span>
           </div>
         </div>
-        <div class="card-footer">
-          <span class="card-desc" style="font-size:0.75rem;">${b.topRight.sub}</span>
+
+        <!-- KUTU 2: Üst Orta (A20 / Apple Silicon Çip & Çekirdek Gücü) -->
+        <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topCenter')">
+          <div class="card-header">
+            <div class="card-tag">${b.topCenter.tag}</div>
+          </div>
+          <div class="card-body">
+            <div class="bionic-chip">
+              <svg class="chip-apple-logo" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.61 1.34-.55.63-1.03 1.68-.9 2.7.99.08 2.02-.51 2.59-1.19z"/>
+              </svg>
+              <div class="chip-name">CORE</div>
+              <div class="chip-badge">PRO</div>
+            </div>
+            <div class="card-metric-label" style="font-weight:600; color:#fff; margin-top:10px;">${b.topCenter.metric}</div>
+            <div class="card-desc" style="font-size:0.75rem;">${b.topCenter.sub}</div>
+          </div>
+          <div class="card-footer">
+            <span class="card-pill-badge">${b.topCenter.badge}</span>
+          </div>
+        </div>
+
+        <!-- KUTU 3: Sağ Üst (Pil / Performans / Memnuniyet) -->
+        <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'topRight')">
+          <div class="card-header">
+            <div class="card-tag">${b.topRight.tag}</div>
+            <div class="card-title">${b.topRight.highlight}</div>
+          </div>
+          <div class="card-body">
+            <div class="card-metric-huge">${b.topRight.metric}</div>
+            <div class="battery-icon-wrapper">
+              <div class="battery-visual">
+                <div class="battery-fill"></div>
+              </div>
+              <span style="font-size:0.75rem; color:var(--apple-green); font-weight:600;">Optimal</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-desc" style="font-size:0.75rem;">${b.topRight.sub}</span>
+          </div>
         </div>
       </div>
 
-      <!-- KUTU 4: Sol Orta (Şarj Hızı / Çabukluk / Verimlilik) -->
-      <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'midLeft')">
-        <div class="card-header">
-          <div class="card-tag">${b.midLeft.tag}</div>
-        </div>
-        <div class="card-body">
-          <svg class="lightning-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
-          <div class="card-desc" style="margin-bottom:4px;">${b.midLeft.highlight}</div>
-          <div class="card-metric-huge" style="color:var(--apple-green);">${b.midLeft.metric}</div>
-        </div>
-        <div class="card-footer">
-          <span class="card-desc" style="font-size:0.75rem;">${b.midLeft.desc}</span>
-        </div>
-      </div>
-
-      <!-- KUTU 5: TAM ORTA (MERKEZ HÜCRE) - UYGULAMANIN CANLI EKRANI & REALISTIC IPHONE FRAME -->
-      <div class="bento-center-card screen-update" id="centerAppCard">
-        <div class="center-ambient-glow"></div>
+      <!-- ALTTRA ORTALANMIŞ BÜYÜK TELEFON MOCKUP'I (MERKEZ SAHNE) -->
+      <div class="bento-phone-stage screen-update" id="centerAppCard">
+        <div class="stage-ambient-glow"></div>
         
-        <!-- iPhone Cihaz Çerçevesi -->
-        <div class="iphone-frame">
+        <!-- Büyük & Net Flagship iPhone -->
+        <div class="iphone-frame-lg">
           <!-- Dynamic Island & Durum Çubuğu -->
           <div class="phone-top-bar">
             <span>09:41</span>
@@ -289,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <!-- Son İşlemler / Akış Listesi -->
             <div class="app-activity-list">
-              <div class="app-activity-header">Hareketler & Veri Akışı</div>
+              <div class="app-activity-header">Canlı Veri & Akış</div>
               ${s.recentTransactions.map(item => `
                 <div class="app-activity-item">
                   <div class="app-item-info">
@@ -306,75 +274,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="phone-home-indicator"></div>
         </div>
 
-        <div style="margin-top: 14px; text-align: center; z-index: 2;">
-          <div style="font-size: 0.85rem; font-weight: 600; color: #fff;">${p.name}</div>
-          <div style="font-size: 0.72rem; color: var(--text-muted);">${p.subheadline.substring(0, 45)}...</div>
-        </div>
-      </div>
-
-      <!-- KUTU 6: Sağ Orta (Siri AI / Ses & Zeka) -->
-      <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'midRight')">
-        <div class="card-header">
-          <div class="card-tag">${b.midRight.tag}</div>
-          <div class="card-title">${b.midRight.title}</div>
-        </div>
-        <div class="card-body">
-          <div class="siri-orb-wrapper">
-            <div class="siri-glow-circle"></div>
-            <div class="siri-core">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <circle cx="12" cy="12" r="4"/>
-                <path d="M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="card-desc" style="font-size:0.75rem;">${b.midRight.desc}</span>
-        </div>
-      </div>
-
-      <!-- KUTU 7: Sol Alt (Erişilebilirlik & Güvenlik) -->
-      <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'bottomLeft')">
-        <div class="card-header">
-          <div class="card-tag">${b.bottomLeft.tag}</div>
-          <div class="card-title">${b.bottomLeft.highlight}</div>
-        </div>
-        <div class="card-body">
-          <div class="card-metric-huge">${b.bottomLeft.metric}</div>
-        </div>
-        <div class="card-footer">
-          <span class="card-desc" style="font-size:0.75rem;">${b.bottomLeft.desc}</span>
-        </div>
-      </div>
-
-      <!-- KUTU 8: Alt Orta (Kamera / Akıcılık / Haptik) -->
-      <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'bottomCenter')">
-        <div class="card-header">
-          <div class="card-tag">${b.bottomCenter.tag}</div>
-          <div class="card-title">${b.bottomCenter.title}</div>
-        </div>
-        <div class="card-body">
-          <div style="font-size:1.8rem; font-weight:800; color:var(--text-white); letter-spacing:-0.02em;">
-            ${b.bottomCenter.badge}
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="card-desc" style="font-size:0.75rem;">${b.bottomCenter.desc}</span>
-        </div>
-      </div>
-
-      <!-- KUTU 9: Sağ Alt (Ödül / Başarı / Retention) -->
-      <div class="bento-card animate-update" onclick="openProjectModal('${p.id}', 'bottomRight')">
-        <div class="card-header">
-          <div class="card-tag">${b.bottomRight.tag}</div>
-          <div class="card-title">${b.bottomRight.title}</div>
-        </div>
-        <div class="card-body">
-          <div class="card-metric-huge" style="color:var(--apple-amber);">${b.bottomRight.metric}</div>
-        </div>
-        <div class="card-footer">
-          <span class="card-desc" style="font-size:0.75rem;">${b.bottomRight.sub}</span>
+        <div style="margin-top: 22px; text-align: center; z-index: 2;">
+          <div style="font-size: 1.25rem; font-weight: 700; color: #fff; letter-spacing:-0.02em;">${p.name}</div>
+          <div style="font-size: 0.9rem; color: var(--text-muted); margin-top:4px; max-width:520px; line-height:1.45;">${p.subheadline}</div>
         </div>
       </div>
     `;
@@ -560,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Başlangıç Yüklemesi
   initProjectSelector();
-  initSidebarProjectList();
+  initProjectPills();
   initThemePalette();
   switchProject(currentProjectId);
   renderGallery('all');

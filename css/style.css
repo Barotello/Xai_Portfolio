@@ -196,171 +196,6 @@ button, select {
 }
 
 /* -------------------------------------------------------------
-   LEFT FLOATING PROJECT LIST (Arka plandan ayrı, yuvarlatılmış)
-------------------------------------------------------------- */
-.project-sidebar {
-  position: fixed;
-  left: 28px;
-  top: 150px;
-  z-index: 95;
-  width: 230px;
-  background: rgba(18, 18, 20, 0.82);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
-  padding: 18px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.sidebar-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--project-accent);
-  transition: color 0.3s;
-}
-
-.sidebar-title {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--text-white);
-  letter-spacing: -0.01em;
-}
-
-.sidebar-subtitle {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-}
-
-.sidebar-project-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.side-project-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 12px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: var(--text-main);
-  text-align: left;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-  width: 100%;
-}
-
-.side-project-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.16);
-  transform: translateX(3px);
-}
-
-.side-project-item.active {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--project-accent);
-  box-shadow: 0 4px 16px var(--project-glow);
-}
-
-.side-project-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.side-project-name {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: -0.01em;
-}
-
-.side-project-cat {
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  margin-top: 1px;
-}
-
-.side-project-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: transparent;
-  transition: all 0.2s;
-}
-
-.side-project-item.active .side-project-dot {
-  background: var(--project-accent);
-  box-shadow: 0 0 8px var(--project-accent);
-}
-
-/* Sidebar Theme Section */
-.sidebar-theme-section {
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.sidebar-theme-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 10px;
-}
-
-.sidebar-color-palette {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4px 2px;
-}
-
-.palette-btn {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  outline: none;
-}
-
-.palette-btn:hover {
-  transform: scale(1.2);
-}
-
-.palette-btn.active {
-  transform: scale(1.15);
-  border-color: #ffffff;
-  box-shadow: 0 0 10px currentColor;
-}
-
-/* -------------------------------------------------------------
    HERO SECTION
 ------------------------------------------------------------- */
 .hero-section {
@@ -613,13 +448,126 @@ button, select {
   transition: transform 0.2s;
 }
 
-/* 3x3 Bento Grid Structure */
-.bento-3x3-grid {
+/* Quick Project Switcher Pills */
+.project-quick-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.project-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.project-pill-btn.active {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--project-accent);
+  color: #ffffff;
+  box-shadow: 0 4px 20px var(--project-glow);
+  transform: translateY(-2px);
+}
+
+.pill-indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.project-pill-btn.active .pill-indicator-dot {
+  background: var(--project-accent);
+  box-shadow: 0 0 8px var(--project-accent);
+}
+
+/* Bento Showcase Layout (Üstte 3 Kutu, Altta Ortalanmış Telefon) */
+.bento-showcase-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 100%;
+}
+
+.bento-top-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 240px;
-  gap: 16px;
+  gap: 20px;
+  width: 100%;
+}
+
+.bento-phone-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  width: 100%;
+  padding: 20px 0 10px;
+}
+
+.stage-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: var(--project-glow);
+  filter: blur(85px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.7s ease;
+}
+
+/* Enhanced Flagship iPhone Frame */
+.iphone-frame-lg {
+  position: relative;
+  z-index: 2;
+  width: 320px;
+  height: 570px;
+  background: #000000;
+  border-radius: 50px;
+  border: 4.5px solid #36363a;
+  box-shadow: 
+    0 0 0 2.5px #18181b,
+    inset 0 0 0 2px #1c1c1f,
+    0 30px 70px -15px rgba(0, 0, 0, 0.95),
+    0 0 50px var(--project-glow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.iphone-frame-lg:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 
+    0 0 0 2.5px #18181b,
+    inset 0 0 0 2px #1c1c1f,
+    0 35px 80px -10px rgba(0, 0, 0, 0.95),
+    0 0 65px var(--project-glow);
 }
 
 /* Individual Bento Card */
@@ -1486,39 +1434,15 @@ button, select {
 /* -------------------------------------------------------------
    RESPONSIVE BREAKPOINTS
 ------------------------------------------------------------- */
-@media (max-width: 1400px) {
-  .project-sidebar {
-    position: static;
-    width: 100%;
-    max-width: 1240px;
-    margin: 0 auto 36px;
-    border-radius: 22px;
-  }
-
-  .sidebar-project-list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .side-project-item {
-    width: auto;
-    flex: 1 1 220px;
-  }
-}
-
 @media (max-width: 1024px) {
-  .bento-3x3-grid {
+  .bento-top-row {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: auto;
+  }
+
+  .bento-top-row .bento-card:last-child {
+    grid-column: 1 / -1;
   }
   
-  .bento-center-card {
-    grid-column: 1 / -1;
-    grid-row: auto;
-    padding: 30px 20px;
-  }
-
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1542,8 +1466,13 @@ button, select {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .bento-3x3-grid {
+  .bento-top-row {
     grid-template-columns: 1fr;
+  }
+
+  .iphone-frame-lg {
+    width: 290px;
+    height: 520px;
   }
 
   .gallery-grid {

@@ -104,7 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
       certsContainer.innerHTML = PORTFOLIO_DATA.certifications.map(cert => `
         <div class="cert-card">
           <div>
-            <div class="cert-issuer">${cert.issuer}</div>
+            <div class="cert-header">
+              <div class="cert-icon-box">
+                <img src="${cert.icon}" alt="${cert.issuer} logo" class="cert-icon" />
+              </div>
+              <div class="cert-issuer">${cert.issuer}</div>
+            </div>
             <h4 class="cert-title">${cert.name}</h4>
           </div>
           <p class="cert-desc">${cert.details}</p>

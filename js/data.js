@@ -147,21 +147,25 @@ const PORTFOLIO_DATA = {
     {
       name: "Google UX Design Professional Certificate",
       issuer: "Google / Coursera",
+      icon: "assets/icons/google.svg",
       details: "UX Research, Wireframing, Prototyping, High-Fidelity UI Design, Design Systems, Accessibility, Usability Testing"
     },
     {
       name: "Anthropic Claude Certifications",
       issuer: "Anthropic",
+      icon: "assets/icons/anthropic.svg",
       details: "Claude Code in Action, AI Fluency: Framework and Foundations"
     },
     {
       name: "The AI Filmmaking Pipeline",
       issuer: "Higgsfield AI",
+      icon: "assets/icons/higgsfield.svg",
       details: "Generative AI visual asset production, storyboard creation, and cinematic pipeline workflows"
     },
     {
       name: "Google Data Analytics Foundations",
       issuer: "Google",
+      icon: "assets/icons/google.svg",
       details: "Data-driven decision making, analytical problem solving, and quantitative foundations"
     }
   ],

@@ -151,12 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Re-bind interactions & animation on gallery update
     if (window.appleInteractions) {
-      window.appleInteractions.refreshCards();
-      galleryGrid.querySelectorAll('.gallery-card').forEach((c, idx) => {
-        c.classList.add('reveal-element');
-        c.style.animationDelay = `${idx * 0.05}s`;
-        c.classList.add('is-visible');
-      });
+      window.appleInteractions.refreshScrollReveals();
     }
 
     updateCarouselProgress();
@@ -341,4 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCompetencies();
   renderCredentials();
   renderGallery('all');
+
+  // Trigger scroll-reveal observer on all rendered cards & elements
+  if (window.appleInteractions) {
+    window.appleInteractions.refreshScrollReveals();
+  }
 });

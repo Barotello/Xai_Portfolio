@@ -109,3 +109,90 @@
 .screen-update {
   animation: phone-screen-slide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* =============================================================
+   APPLE SCROLL-REVEAL & DYNAMIC COMPONENT MOTION ENGINE
+============================================================= */
+
+/* Base element waiting to be scrolled into view */
+.reveal-on-scroll,
+.reveal-element {
+  opacity: 0;
+  transform: translateY(38px) scale(0.97);
+  filter: blur(8px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+/* Directional variants */
+.reveal-from-left {
+  transform: translateX(-35px) scale(0.98);
+}
+
+.reveal-from-right {
+  transform: translateX(35px) scale(0.98);
+}
+
+.reveal-from-bottom {
+  transform: translateY(38px) scale(0.97);
+}
+
+/* Active revealed state when entering viewport */
+.reveal-on-scroll.is-revealed,
+.reveal-element.is-revealed,
+.reveal-element.is-visible {
+  opacity: 1 !important;
+  transform: translate(0, 0) scale(1) !important;
+  filter: blur(0px) !important;
+}
+
+/* Once fully revealed, card tilt and hover transforms become completely fluid */
+.reveal-completed {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background 0.3s ease !important;
+}
+
+/* Stagger delay support via CSS variable */
+.reveal-on-scroll[style*="--reveal-delay"] {
+  transition-delay: var(--reveal-delay);
+}
+
+/* Micro-pop on card icons when revealed */
+.is-revealed .cert-icon-box,
+.is-revealed .competency-icon-box {
+  animation: apple-icon-pop 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes apple-icon-pop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Active Nav Link from Scroll-Spy */
+.nav-link.active-nav-link {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 0 14px rgba(10, 132, 255, 0.28);
+}
+
+/* Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-element {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
